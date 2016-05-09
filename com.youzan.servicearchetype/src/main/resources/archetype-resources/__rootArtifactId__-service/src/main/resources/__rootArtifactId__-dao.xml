@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--mapper 自动扫描实例化mapper, 将Mapper接口生成代理注入到Spring -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.youzan.${rootArtifactId}.dal.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="defaultSqlSessionFactory"/>
+    </bean>
+
+</beans>

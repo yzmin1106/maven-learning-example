@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${${rootArtifactId}.jdbc.url}"/>
+        <property name="username" value="${${rootArtifactId}.jdbc.username}"/>
+        <property name="password" value="${${rootArtifactId}.jdbc.password}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="3"/>
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="20"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="3"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="6000"/>
+        <property name="removeAbandonedTimeout" value="180"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="validationQuery" value="SELECT 1"/>
+        <property name="validationQueryTimeout" value="1"/>
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <property name="minEvictableIdleTimeMillis" value="120000"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="logAbandoned" value="true"/>
+    </bean>
+
+    <!-- myBatis 配置 -->
+    <bean id="defaultSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:dal/mapper/*-sqlmap.xml"/>
+    </bean>
+
+
+    <!-- 事务配置 -->
+    <bean id="defaultTx" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="defaultTxTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="defaultTx"/>
+    </bean>
+</beans>

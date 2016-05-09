@@ -1,0 +1,81 @@
+<assembly>
+  <id>${land.dep.app_name}</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+
+  <files>
+    <!-- 配置文件 conf -->
+    <file>
+      <source>${basedir}/target/classes/${rootArtifactId}.properties</source>
+      <outputDirectory>/conf</outputDirectory>
+      <fileMode>0777</fileMode>
+    </file>
+    <file>
+      <source>${basedir}/target/classes/logback.xml</source>
+      <outputDirectory>/conf</outputDirectory>
+      <fileMode>0777</fileMode>
+    </file>
+    <!-- 启动脚本 bin -->
+    <file>
+      <source>${basedir}/src/main/bin/start.sh</source>
+      <outputDirectory>/bin</outputDirectory>
+      <fileMode>0777</fileMode>
+    </file>
+    <file>
+      <source>${basedir}/src/main/bin/stop.sh</source>
+      <outputDirectory>/bin</outputDirectory>
+      <fileMode>0777</fileMode>
+    </file>
+    <file>
+      <source>${basedir}/src/main/bin/status.sh</source>
+      <outputDirectory>/bin</outputDirectory>
+      <fileMode>0777</fileMode>
+    </file>
+      <file>
+          <source>${basedir}/src/main/bin/reload.sh</source>
+          <outputDirectory>/bin</outputDirectory>
+          <fileMode>0777</fileMode>
+      </file>
+      <file>
+          <source>${basedir}/src/main/bin/offline.sh</source>
+          <outputDirectory>/bin</outputDirectory>
+          <fileMode>0777</fileMode>
+      </file>
+      <file>
+          <source>${basedir}/src/main/bin/online.sh</source>
+          <outputDirectory>/bin</outputDirectory>
+          <fileMode>0777</fileMode>
+      </file>
+      <file>
+          <source>${basedir}/src/main/bin/preload.sh</source>
+          <outputDirectory>/bin</outputDirectory>
+          <fileMode>0777</fileMode>
+      </file>
+  </files>
+  <dependencySets>
+    <!-- 外部依赖lib  dep -->
+    <dependencySet>
+      <outputDirectory>/dep</outputDirectory>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <useProjectArtifact>false</useProjectArtifact>
+      <fileMode>0777</fileMode>
+      <excludes>
+        <exclude>com.youzan.ic.${rootArtifactId}:*</exclude>
+      </excludes>
+    </dependencySet>
+    <!-- ic.${rootArtifactId} lib -->
+    <dependencySet>
+      <outputDirectory>/lib</outputDirectory>
+      <unpack>false</unpack>
+      <scope>runtime</scope>
+      <useProjectArtifact>false</useProjectArtifact>
+      <fileMode>0777</fileMode>
+      <includes>
+        <include>com.youzan.ic.${rootArtifactId}:*</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
+</assembly>
